@@ -1,0 +1,36 @@
+scalar DateTime
+
+type Expense {
+  id: Int!
+  title: String!
+  description: String
+  amount: Float!
+  date: DateTime!
+}
+
+input CreateExpenseInput {
+  title: String!
+  description: String
+  amount: Float!
+  date: DateTime!
+}
+
+input UpdateExpenseInput {
+  title: String
+  description: String
+  amount: Float
+  date: DateTime
+}
+
+type Query {
+  expenses(page: Int!): [Expense!]!
+  expense(id: Int!): Expense
+  total: Float!
+  pagesCount: Int!
+}
+
+type Mutation {
+  createExpense(createExpenseInput: CreateExpenseInput!): Expense!
+  updateExpense(id: Int!, updateExpenseInput: UpdateExpenseInput!): Expense!
+  deleteExpense(id: Int!): Expense
+}

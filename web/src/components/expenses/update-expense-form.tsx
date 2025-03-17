@@ -4,6 +4,8 @@ import { ExpenseForm } from './expense-form'
 import { useUpdateExpense } from '../../hooks/use-update-expense'
 import { useSearch } from '@tanstack/react-router'
 import { useNavigateToPage } from '../../hooks/use-navigate-to-page'
+import { toaster } from '../ui/toaster'
+import { onErrorToast } from '../../utils/on-error-toast'
 
 export const UpdateExpenseForm = ({ expense }: { expense: Expense }) => {
   const { setOpen } = useModalContext()
@@ -12,11 +14,15 @@ export const UpdateExpenseForm = ({ expense }: { expense: Expense }) => {
 
   const expenseHook = useUpdateExpense(expense, {
     onCompleted: () => {
+      toaster.create({
+        title: 'Success',
+        description: 'Expense updated successfully',
+      })
       expenseHook.reset()
       navigateToPage(page) // This is to re-fetch the data from the server
-
       setOpen(false)
     },
+    onError: onErrorToast,
   })
 
   return <ExpenseForm expenseHook={expenseHook} />

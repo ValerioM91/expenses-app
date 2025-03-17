@@ -2,6 +2,8 @@ import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { useModalContext } from '../ui/modal/modal-context'
 import { useDeleteExpenseMutation } from '../../gql/hooks'
 import { useNavigateToPage } from '../../hooks/use-navigate-to-page'
+import { toaster } from '../ui/toaster'
+import { onErrorToast } from '../../utils/on-error-toast'
 
 export const DeleteExpenseForm = ({ id }: { id: number }) => {
   const { setOpen } = useModalContext()
@@ -9,9 +11,14 @@ export const DeleteExpenseForm = ({ id }: { id: number }) => {
 
   const [mutation, { loading }] = useDeleteExpenseMutation({
     onCompleted: () => {
+      toaster.create({
+        title: 'Success',
+        description: 'Expense deleted successfully',
+      })
       navigateToPage(1)
       setOpen(false)
     },
+    onError: onErrorToast,
   })
 
   return (

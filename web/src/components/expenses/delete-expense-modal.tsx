@@ -7,7 +7,12 @@ export const DeleteExpenseModal = ({ id }: { id: number }) => {
   return (
     <Modal.Provider>
       <Modal.Trigger>
-        <IconButton size="xs" bg="red.solid" aria-label="Edit expense">
+        <IconButton
+          size="xs"
+          bg="red.solid"
+          aria-label="Delete expense"
+          data-testid={`delete-expense-${id}`}
+        >
           <TbTrashX />
         </IconButton>
       </Modal.Trigger>

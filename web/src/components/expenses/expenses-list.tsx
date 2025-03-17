@@ -9,7 +9,7 @@ export const ExpensesList = ({ expenses }: { expenses?: Expense[] }) => {
     return (
       <Box>
         <Text fontSize="2xl" textAlign="center">
-          No data
+          No expenses found. Add one to get started!
         </Text>
       </Box>
     )

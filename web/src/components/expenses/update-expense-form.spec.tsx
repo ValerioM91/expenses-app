@@ -1,23 +1,32 @@
 import { screen, fireEvent, renderHook } from '@testing-library/react'
 import { vi, type Mock } from 'vitest'
-import { AddExpenseForm } from './add-expense-form'
-import { useCreateExpense } from '../../hooks/use-create-expense'
+import { useUpdateExpense } from '../../hooks/use-update-expense'
 import { useModalContext } from '../ui/modal/modal-context'
 import { useNavigateToPage } from '../../hooks/use-navigate-to-page'
 import { Provider } from '../ui/provider'
 import { ModalProvider } from '../ui/modal/modal-provider'
+import { UpdateExpenseForm } from './update-expense-form'
+import type { Expense } from '../../gql/graphql'
 
 // Mock dependencies
-vi.mock('../../hooks/use-create-expense')
+vi.mock('../../hooks/use-update-expense')
 vi.mock('../../utils/apollo-client')
 vi.mock('@tanstack/react-router')
 vi.mock('../../hooks/use-navigate-to-page')
+
+const expense: Expense = {
+  id: 1,
+  title: 'Expense',
+  description: 'Description',
+  amount: 10,
+  date: '2022-01-01',
+}
 
 const wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider>
       <ModalProvider>
-        <AddExpenseForm />
+        <UpdateExpenseForm expense={expense} />
         {children}
       </ModalProvider>
     </Provider>
@@ -27,14 +36,13 @@ const wrapper = ({ children }: { children: React.ReactNode }) => {
 const renderForm = () => renderHook(() => useModalContext(), { wrapper })
 const mockOnSubmit = vi.fn()
 
-describe('AddExpenseForm', () => {
-  // const mockSetOpen = vi.fn()
+describe('UpdateExpenseForm', () => {
   const mockReset = vi.fn()
   const mockNavigateToPage = vi.fn()
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(useCreateExpense as Mock).mockReturnValue({
+    ;(useUpdateExpense as Mock).mockReturnValue({
       errors: {},
       reset: mockReset,
       onCompleted: vi.fn((callback) => callback()),

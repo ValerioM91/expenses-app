@@ -41,7 +41,6 @@ export const ExpenseForm = ({
             <Field.Label>Date</Field.Label>
             <Input
               type="datetime-local"
-              //   defaultValue={new Date().toISOString().slice(0, 16)}
               {...register('date', {
                 valueAsDate: true,
                 setValueAs(value) {

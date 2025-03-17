@@ -8,11 +8,7 @@ export const UpdateExpenseModal = ({ expense }: { expense: Expense }) => {
   return (
     <Modal.Provider>
       <Modal.Trigger>
-        <IconButton
-          size="xs"
-          aria-label="Edit expense"
-          onClick={() => console.log('edit', expense.id)}
-        >
+        <IconButton size="xs" aria-label="Edit expense" data-testid={`edit-expense-${expense.id}`}>
           <TbEdit />
         </IconButton>
       </Modal.Trigger>

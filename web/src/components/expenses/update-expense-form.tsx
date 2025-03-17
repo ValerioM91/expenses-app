@@ -9,7 +9,7 @@ import { onErrorToast } from '../../utils/on-error-toast'
 
 export const UpdateExpenseForm = ({ expense }: { expense: Expense }) => {
   const { setOpen } = useModalContext()
-  const page = useSearch({ from: '/' }).page ?? 1
+  const page = useSearch({ from: '/' })?.page ?? 1
   const navigateToPage = useNavigateToPage()
 
   const expenseHook = useUpdateExpense(expense, {

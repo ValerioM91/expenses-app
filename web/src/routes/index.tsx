@@ -14,7 +14,6 @@ export const Route = createFileRoute('/')({
     page: z.number().optional(),
   }),
   loaderDeps: ({ search: { page } }) => ({ page }),
-
   loader: async ({ deps: { page } }) => {
     try {
       return await apolloClient.query({
@@ -24,13 +23,18 @@ export const Route = createFileRoute('/')({
       })
     } catch (error) {
       console.error(error)
-      return { data: undefined }
+      return { data: undefined, error: 'Failed to load expenses' }
     }
   },
 })
 
 function App() {
-  const { data } = Route.useLoaderData() as { data: TExpensesQuery | undefined }
+  const { data, error } = Route.useLoaderData() as {
+    data: TExpensesQuery | undefined
+    error: string | undefined
+  }
+
+  const { expenses, pagesCount, total } = data ?? {}
 
   return (
     <Box bgColor="gray.900" p={6} minH="100vh">
@@ -40,14 +44,22 @@ function App() {
         </Heading>
       </header>
       <Box as="main" mt={6} mx="auto" maxW="breakpoint-2xl">
-        <Flex justifyContent="space-between" mt={6}>
-          {data?.total && <Text fontSize="2xl">Total: £{data.total}</Text>}
-          <AddExpenseModal />
-        </Flex>
-        <Box mt={6}>
-          <ExpensesList expenses={data?.expenses} />
-          <Pagination totalPages={data?.pagesCount ?? 1} />
-        </Box>
+        {error ? (
+          <Text color="red.500" fontSize="3xl" textAlign="center">
+            There was an error: "{error}". Please try again later.
+          </Text>
+        ) : (
+          <>
+            <Flex justifyContent="space-between" mt={6}>
+              <Text fontSize="2xl">Total: £{(total ?? 0).toFixed(2)}</Text>
+              <AddExpenseModal />
+            </Flex>
+            <Box mt={6}>
+              <ExpensesList expenses={expenses} />
+              <Pagination totalPages={pagesCount ?? 0} />
+            </Box>
+          </>
+        )}
       </Box>
     </Box>
   )

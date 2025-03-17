@@ -27,6 +27,7 @@ export const DeleteExpenseForm = ({ id }: { id: number }) => {
         e.preventDefault()
         mutation({ variables: { removeExpenseId: id } })
       }}
+      role="form"
     >
       <Box>
         <Text fontSize="lg">{'Deleting this item cannot be undone'}</Text>

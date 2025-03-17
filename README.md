@@ -5,7 +5,8 @@ This is a simple expenses app that allows you to add, edit, and delete expenses.
 ## Installation
 
 1. Run `docker-compose up -d` to start a database container.
-2. Run:
+2. In api, Rename the `.env.example` file to `.env`.
+3. Run:
 
 ```bash
 npm install;

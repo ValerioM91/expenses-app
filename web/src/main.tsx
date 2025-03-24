@@ -38,6 +38,6 @@ if (rootElement && !rootElement.innerHTML) {
           <RouterProvider router={router} />
         </Provider>
       </ApolloProvider>
-    </StrictMode>
+    </StrictMode>,
   )
 }

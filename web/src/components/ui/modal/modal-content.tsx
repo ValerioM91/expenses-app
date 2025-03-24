@@ -56,7 +56,7 @@ export const ModalContent = ({ children, ...contentProps }: PropsWithChildren<Fl
         </Flex>
       </Flex>
     </FocusLock>,
-    document.getElementById('modal') as HTMLElement
+    document.getElementById('modal') as HTMLElement,
   )
 }
 ModalContent.displayName = 'ModalContent'

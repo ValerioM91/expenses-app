@@ -14,7 +14,7 @@ const renderModal = () => {
           <div>The content</div>
         </Modal.Content>
       </Modal.Provider>
-    </div>
+    </div>,
   )
 }
 

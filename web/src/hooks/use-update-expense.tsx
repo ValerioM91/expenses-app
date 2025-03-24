@@ -6,7 +6,7 @@ import { useUpdateExpenseMutation } from '../gql/hooks'
 
 export const useUpdateExpense = (
   expense: Expense,
-  options?: Parameters<typeof useUpdateExpenseMutation>[0]
+  options?: Parameters<typeof useUpdateExpenseMutation>[0],
 ) => {
   const [mutation, { loading, error, called }] = useUpdateExpenseMutation(options)
 
@@ -25,9 +25,9 @@ export const useUpdateExpense = (
           updateExpenseId: expense.id,
           updateExpenseInput: data,
         },
-      })
+      }),
     ),
-    [mutation, handleSubmit]
+    [mutation, handleSubmit],
   )
 
   return {

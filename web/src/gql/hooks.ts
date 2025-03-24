@@ -1,129 +1,161 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+export type Maybe<T> = T | null
+export type InputMaybe<T> = Maybe<T>
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never
+}
+export type Incremental<T> =
+  | T
+  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  DateTime: { input: Date; output: string; }
-};
+  ID: { input: string; output: string }
+  String: { input: string; output: string }
+  Boolean: { input: boolean; output: boolean }
+  Int: { input: number; output: number }
+  Float: { input: number; output: number }
+  DateTime: { input: Date; output: string }
+}
 
 export type CreateExpenseInput = {
-  amount: Scalars['Float']['input'];
-  date: Scalars['DateTime']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
-  title: Scalars['String']['input'];
-};
+  amount: Scalars['Float']['input']
+  date: Scalars['DateTime']['input']
+  description?: InputMaybe<Scalars['String']['input']>
+  title: Scalars['String']['input']
+}
 
 export type Expense = {
-  __typename?: 'Expense';
-  amount: Scalars['Float']['output'];
-  date: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  title: Scalars['String']['output'];
-};
+  __typename?: 'Expense'
+  amount: Scalars['Float']['output']
+  date: Scalars['DateTime']['output']
+  description?: Maybe<Scalars['String']['output']>
+  id: Scalars['Int']['output']
+  title: Scalars['String']['output']
+}
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  createExpense: Expense;
-  deleteExpense?: Maybe<Expense>;
-  updateExpense: Expense;
-};
-
+  __typename?: 'Mutation'
+  createExpense: Expense
+  deleteExpense?: Maybe<Expense>
+  updateExpense: Expense
+}
 
 export type MutationCreateExpenseArgs = {
-  createExpenseInput: CreateExpenseInput;
-};
-
+  createExpenseInput: CreateExpenseInput
+}
 
 export type MutationDeleteExpenseArgs = {
-  id: Scalars['Int']['input'];
-};
-
+  id: Scalars['Int']['input']
+}
 
 export type MutationUpdateExpenseArgs = {
-  id: Scalars['Int']['input'];
-  updateExpenseInput: UpdateExpenseInput;
-};
+  id: Scalars['Int']['input']
+  updateExpenseInput: UpdateExpenseInput
+}
 
 export type Query = {
-  __typename?: 'Query';
-  expense?: Maybe<Expense>;
-  expenses: Array<Expense>;
-  pagesCount: Scalars['Int']['output'];
-  total: Scalars['Float']['output'];
-};
-
+  __typename?: 'Query'
+  expense?: Maybe<Expense>
+  expenses: Array<Expense>
+  pagesCount: Scalars['Int']['output']
+  total: Scalars['Float']['output']
+}
 
 export type QueryExpenseArgs = {
-  id: Scalars['Int']['input'];
-};
-
+  id: Scalars['Int']['input']
+}
 
 export type QueryExpensesArgs = {
-  page: Scalars['Int']['input'];
-};
+  page: Scalars['Int']['input']
+}
 
 export type UpdateExpenseInput = {
-  amount?: InputMaybe<Scalars['Float']['input']>;
-  date?: InputMaybe<Scalars['DateTime']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
+  amount?: InputMaybe<Scalars['Float']['input']>
+  date?: InputMaybe<Scalars['DateTime']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  title?: InputMaybe<Scalars['String']['input']>
+}
 
 export type CreateExpenseMutationVariables = Exact<{
-  createExpenseInput: CreateExpenseInput;
-}>;
+  createExpenseInput: CreateExpenseInput
+}>
 
-
-export type CreateExpenseMutation = { __typename?: 'Mutation', createExpense: { __typename?: 'Expense', amount: number, date: string, description?: string | null, id: number, title: string } };
-
-export type UpdateExpenseMutationVariables = Exact<{
-  updateExpenseId: Scalars['Int']['input'];
-  updateExpenseInput: UpdateExpenseInput;
-}>;
-
-
-export type UpdateExpenseMutation = { __typename?: 'Mutation', updateExpense: { __typename?: 'Expense', amount: number, date: string, description?: string | null, id: number, title: string } };
-
-export type DeleteExpenseMutationVariables = Exact<{
-  removeExpenseId: Scalars['Int']['input'];
-}>;
-
-
-export type DeleteExpenseMutation = { __typename?: 'Mutation', deleteExpense?: { __typename?: 'Expense', id: number } | null };
-
-export type ExpensesQueryVariables = Exact<{
-  page: Scalars['Int']['input'];
-}>;
-
-
-export type ExpensesQuery = { __typename?: 'Query', total: number, pagesCount: number, expenses: Array<{ __typename?: 'Expense', amount: number, date: string, description?: string | null, id: number, title: string }> };
-
-
-export const CreateExpenseDocument = gql`
-    mutation CreateExpense($createExpenseInput: CreateExpenseInput!) {
-  createExpense(createExpenseInput: $createExpenseInput) {
-    amount
-    date
-    description
-    id
-    title
+export type CreateExpenseMutation = {
+  __typename?: 'Mutation'
+  createExpense: {
+    __typename?: 'Expense'
+    amount: number
+    date: string
+    description?: string | null
+    id: number
+    title: string
   }
 }
-    `;
-export type CreateExpenseMutationFn = Apollo.MutationFunction<CreateExpenseMutation, CreateExpenseMutationVariables>;
+
+export type UpdateExpenseMutationVariables = Exact<{
+  updateExpenseId: Scalars['Int']['input']
+  updateExpenseInput: UpdateExpenseInput
+}>
+
+export type UpdateExpenseMutation = {
+  __typename?: 'Mutation'
+  updateExpense: {
+    __typename?: 'Expense'
+    amount: number
+    date: string
+    description?: string | null
+    id: number
+    title: string
+  }
+}
+
+export type DeleteExpenseMutationVariables = Exact<{
+  removeExpenseId: Scalars['Int']['input']
+}>
+
+export type DeleteExpenseMutation = {
+  __typename?: 'Mutation'
+  deleteExpense?: { __typename?: 'Expense'; id: number } | null
+}
+
+export type ExpensesQueryVariables = Exact<{
+  page: Scalars['Int']['input']
+}>
+
+export type ExpensesQuery = {
+  __typename?: 'Query'
+  total: number
+  pagesCount: number
+  expenses: Array<{
+    __typename?: 'Expense'
+    amount: number
+    date: string
+    description?: string | null
+    id: number
+    title: string
+  }>
+}
+
+export const CreateExpenseDocument = gql`
+  mutation CreateExpense($createExpenseInput: CreateExpenseInput!) {
+    createExpense(createExpenseInput: $createExpenseInput) {
+      amount
+      date
+      description
+      id
+      title
+    }
+  }
+`
+export type CreateExpenseMutationFn = Apollo.MutationFunction<
+  CreateExpenseMutation,
+  CreateExpenseMutationVariables
+>
 
 /**
  * __useCreateExpenseMutation__
@@ -142,25 +174,36 @@ export type CreateExpenseMutationFn = Apollo.MutationFunction<CreateExpenseMutat
  *   },
  * });
  */
-export function useCreateExpenseMutation(baseOptions?: Apollo.MutationHookOptions<CreateExpenseMutation, CreateExpenseMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateExpenseMutation, CreateExpenseMutationVariables>(CreateExpenseDocument, options);
-      }
-export type CreateExpenseMutationHookResult = ReturnType<typeof useCreateExpenseMutation>;
-export type CreateExpenseMutationResult = Apollo.MutationResult<CreateExpenseMutation>;
-export type CreateExpenseMutationOptions = Apollo.BaseMutationOptions<CreateExpenseMutation, CreateExpenseMutationVariables>;
-export const UpdateExpenseDocument = gql`
-    mutation UpdateExpense($updateExpenseId: Int!, $updateExpenseInput: UpdateExpenseInput!) {
-  updateExpense(id: $updateExpenseId, updateExpenseInput: $updateExpenseInput) {
-    amount
-    date
-    description
-    id
-    title
-  }
+export function useCreateExpenseMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateExpenseMutation, CreateExpenseMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateExpenseMutation, CreateExpenseMutationVariables>(
+    CreateExpenseDocument,
+    options,
+  )
 }
-    `;
-export type UpdateExpenseMutationFn = Apollo.MutationFunction<UpdateExpenseMutation, UpdateExpenseMutationVariables>;
+export type CreateExpenseMutationHookResult = ReturnType<typeof useCreateExpenseMutation>
+export type CreateExpenseMutationResult = Apollo.MutationResult<CreateExpenseMutation>
+export type CreateExpenseMutationOptions = Apollo.BaseMutationOptions<
+  CreateExpenseMutation,
+  CreateExpenseMutationVariables
+>
+export const UpdateExpenseDocument = gql`
+  mutation UpdateExpense($updateExpenseId: Int!, $updateExpenseInput: UpdateExpenseInput!) {
+    updateExpense(id: $updateExpenseId, updateExpenseInput: $updateExpenseInput) {
+      amount
+      date
+      description
+      id
+      title
+    }
+  }
+`
+export type UpdateExpenseMutationFn = Apollo.MutationFunction<
+  UpdateExpenseMutation,
+  UpdateExpenseMutationVariables
+>
 
 /**
  * __useUpdateExpenseMutation__
@@ -180,21 +223,32 @@ export type UpdateExpenseMutationFn = Apollo.MutationFunction<UpdateExpenseMutat
  *   },
  * });
  */
-export function useUpdateExpenseMutation(baseOptions?: Apollo.MutationHookOptions<UpdateExpenseMutation, UpdateExpenseMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateExpenseMutation, UpdateExpenseMutationVariables>(UpdateExpenseDocument, options);
-      }
-export type UpdateExpenseMutationHookResult = ReturnType<typeof useUpdateExpenseMutation>;
-export type UpdateExpenseMutationResult = Apollo.MutationResult<UpdateExpenseMutation>;
-export type UpdateExpenseMutationOptions = Apollo.BaseMutationOptions<UpdateExpenseMutation, UpdateExpenseMutationVariables>;
-export const DeleteExpenseDocument = gql`
-    mutation DeleteExpense($removeExpenseId: Int!) {
-  deleteExpense(id: $removeExpenseId) {
-    id
-  }
+export function useUpdateExpenseMutation(
+  baseOptions?: Apollo.MutationHookOptions<UpdateExpenseMutation, UpdateExpenseMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateExpenseMutation, UpdateExpenseMutationVariables>(
+    UpdateExpenseDocument,
+    options,
+  )
 }
-    `;
-export type DeleteExpenseMutationFn = Apollo.MutationFunction<DeleteExpenseMutation, DeleteExpenseMutationVariables>;
+export type UpdateExpenseMutationHookResult = ReturnType<typeof useUpdateExpenseMutation>
+export type UpdateExpenseMutationResult = Apollo.MutationResult<UpdateExpenseMutation>
+export type UpdateExpenseMutationOptions = Apollo.BaseMutationOptions<
+  UpdateExpenseMutation,
+  UpdateExpenseMutationVariables
+>
+export const DeleteExpenseDocument = gql`
+  mutation DeleteExpense($removeExpenseId: Int!) {
+    deleteExpense(id: $removeExpenseId) {
+      id
+    }
+  }
+`
+export type DeleteExpenseMutationFn = Apollo.MutationFunction<
+  DeleteExpenseMutation,
+  DeleteExpenseMutationVariables
+>
 
 /**
  * __useDeleteExpenseMutation__
@@ -213,26 +267,34 @@ export type DeleteExpenseMutationFn = Apollo.MutationFunction<DeleteExpenseMutat
  *   },
  * });
  */
-export function useDeleteExpenseMutation(baseOptions?: Apollo.MutationHookOptions<DeleteExpenseMutation, DeleteExpenseMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteExpenseMutation, DeleteExpenseMutationVariables>(DeleteExpenseDocument, options);
-      }
-export type DeleteExpenseMutationHookResult = ReturnType<typeof useDeleteExpenseMutation>;
-export type DeleteExpenseMutationResult = Apollo.MutationResult<DeleteExpenseMutation>;
-export type DeleteExpenseMutationOptions = Apollo.BaseMutationOptions<DeleteExpenseMutation, DeleteExpenseMutationVariables>;
-export const ExpensesDocument = gql`
-    query Expenses($page: Int!) {
-  total
-  pagesCount
-  expenses(page: $page) {
-    amount
-    date
-    description
-    id
-    title
-  }
+export function useDeleteExpenseMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteExpenseMutation, DeleteExpenseMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteExpenseMutation, DeleteExpenseMutationVariables>(
+    DeleteExpenseDocument,
+    options,
+  )
 }
-    `;
+export type DeleteExpenseMutationHookResult = ReturnType<typeof useDeleteExpenseMutation>
+export type DeleteExpenseMutationResult = Apollo.MutationResult<DeleteExpenseMutation>
+export type DeleteExpenseMutationOptions = Apollo.BaseMutationOptions<
+  DeleteExpenseMutation,
+  DeleteExpenseMutationVariables
+>
+export const ExpensesDocument = gql`
+  query Expenses($page: Int!) {
+    total
+    pagesCount
+    expenses(page: $page) {
+      amount
+      date
+      description
+      id
+      title
+    }
+  }
+`
 
 /**
  * __useExpensesQuery__
@@ -250,19 +312,29 @@ export const ExpensesDocument = gql`
  *   },
  * });
  */
-export function useExpensesQuery(baseOptions: Apollo.QueryHookOptions<ExpensesQuery, ExpensesQueryVariables> & ({ variables: ExpensesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options);
-      }
-export function useExpensesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExpensesQuery, ExpensesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options);
-        }
-export function useExpensesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ExpensesQuery, ExpensesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options);
-        }
-export type ExpensesQueryHookResult = ReturnType<typeof useExpensesQuery>;
-export type ExpensesLazyQueryHookResult = ReturnType<typeof useExpensesLazyQuery>;
-export type ExpensesSuspenseQueryHookResult = ReturnType<typeof useExpensesSuspenseQuery>;
-export type ExpensesQueryResult = Apollo.QueryResult<ExpensesQuery, ExpensesQueryVariables>;
+export function useExpensesQuery(
+  baseOptions: Apollo.QueryHookOptions<ExpensesQuery, ExpensesQueryVariables> &
+    ({ variables: ExpensesQueryVariables; skip?: boolean } | { skip: boolean }),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options)
+}
+export function useExpensesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ExpensesQuery, ExpensesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options)
+}
+export function useExpensesSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<ExpensesQuery, ExpensesQueryVariables>,
+) {
+  const options =
+    baseOptions === Apollo.skipToken ? baseOptions : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<ExpensesQuery, ExpensesQueryVariables>(ExpensesDocument, options)
+}
+export type ExpensesQueryHookResult = ReturnType<typeof useExpensesQuery>
+export type ExpensesLazyQueryHookResult = ReturnType<typeof useExpensesLazyQuery>
+export type ExpensesSuspenseQueryHookResult = ReturnType<typeof useExpensesSuspenseQuery>
+export type ExpensesQueryResult = Apollo.QueryResult<ExpensesQuery, ExpensesQueryVariables>

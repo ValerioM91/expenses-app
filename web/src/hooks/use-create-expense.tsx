@@ -20,9 +20,9 @@ export const useCreateExpense = (options?: Parameters<typeof useCreateExpenseMut
         variables: {
           createExpenseInput: data,
         },
-      })
+      }),
     ),
-    [mutation, handleSubmit]
+    [mutation, handleSubmit],
   )
 
   return {

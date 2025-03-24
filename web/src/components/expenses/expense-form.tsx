@@ -1,5 +1,5 @@
 import { Button, Field, Fieldset, Input } from '@chakra-ui/react'
-import { useCreateExpense } from '../../hooks/use-create-expense'
+import type { useCreateExpense } from '../../hooks/use-create-expense'
 import type { useUpdateExpense } from '../../hooks/use-update-expense'
 
 export const ExpenseForm = ({
